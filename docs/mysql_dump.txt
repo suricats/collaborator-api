@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS `collaborateur` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(20) NOT NULL COMMENT 'Collaborator name',
+  `firstname` VARCHAR(20) NOT NULL COMMENT 'Collaborator firstname',
+  `phone` VARCHAR(20) COMMENT 'Collaborator phone',
+  `lastUpdate` CHAR(30) NOT NULL COMMENT 'Last update Date',
+  `email` VARCHAR(40) NOT NULL COMMENT 'Collaborator email',
+  `birthDate` CHAR(20) COMMENT 'Collaborator birth date',
+  `status` VARCHAR(3) NOT NULL COMMENT 'Collaborator status (IN or OUT)',
+  `creationDate` CHAR(30) NOT NULL,
+  `slackLogin` VARCHAR(20) COMMENT 'Collaborator slack username',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1;

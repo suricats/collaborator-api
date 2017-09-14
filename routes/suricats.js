@@ -43,7 +43,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-  var request = { id : req.params.id};
+  var request = { email : req.params.id};
   mysqlFactory.request(connection, 'SELECT * FROM `collaborateur` WHERE ?', request, function(err, rows, fields){
     if(err) {
       console.log('err', err);
@@ -137,7 +137,7 @@ router.post('/import', function(req, res) {
 });
 
 router.put('/:id', function(req, res) {
-  var request = { id : req.params.id};
+  var request = { email : req.params.id};
   var body = req.body;
   body.lastUpdate = moment().format();
 
@@ -155,7 +155,7 @@ router.put('/:id', function(req, res) {
 });
 
 router.delete('/:id', function(req, res) {
-  var request = { id : req.params.id};
+  var request = { email : req.params.id};
 
   mysqlFactory.request(connection, 'DELETE FROM `collaborateur` WHERE ?', request, function(err,rows){
     if(err) {

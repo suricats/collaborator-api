@@ -14,9 +14,9 @@ CREATE TABLE IF NOT EXISTS `collaborateur` (
 
 CREATE TABLE IF NOT EXISTS `tirosuri` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_collab_1` VARCHAR(40) NOT NULL COMMENT 'Collaborator 1 email',
-  `id_collab_2` VARCHAR(40) NOT NULL COMMENT 'Collaborator 2 email',
-  `id_collab_3` VARCHAR(40) COMMENT 'Collaborator 3 email',
+  `id_collab_1` INT(10) NOT NULL COMMENT 'Collaborator 1 email',
+  `id_collab_2` INT(10) NOT NULL COMMENT 'Collaborator 2 email',
+  `id_collab_3` INT(10) COMMENT 'Collaborator 3 email',
   `date` CHAR(30) NOT NULL COMMENT 'Collaborator phone',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;

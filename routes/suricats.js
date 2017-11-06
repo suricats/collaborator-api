@@ -9,6 +9,7 @@ var csv = require("fast-csv");
 var fs = require('fs');
 var moment = require('moment');
 var collabUtils = require("../lib/collaborateur_utils");
+var tirosuriUtils = require("../lib/tirosuri_utils");
 var mysqlFactory = require("../lib/mysql_factory");
 
 // DATABASE CONNECTION
@@ -59,10 +60,10 @@ router.get('/:id', function(req, res) {
 
 router.post('/', function(req, res) {
   var body = req.body;
-  if(!collabUtils.isValidCollaborateur(body)){
+  if(!collabUtils.isValidResource(body)){
     return res.status(500).send({"status" : "Error", "text" : "missing mandatory fields"});
   }
-  body = collabUtils.setCollaborateurDefaultValues(body);
+  body = collabUtils.setDefaultValues(body);
   mysqlFactory.request(connection, 'INSERT INTO `collaborateur` SET ?', body, function(err, rows, fields){
     if(err) {
       console.log('err', err);
@@ -96,7 +97,7 @@ router.post('/import', function(req, res) {
     .on("data", function(line){
      if(first){
        line.forEach(function(element, index){
-         var ressourceName = collabUtils.getCollaborateurRessourceName(element);
+         var ressourceName = collabUtils.getRessourceName(element);
          if(ressourceName !== ''){
            referentiel[index] = ressourceName;
          }
@@ -108,9 +109,9 @@ router.post('/import', function(req, res) {
        line.forEach(function(element, index){
          collaborateur[referentiel[index]] = element;
        });
-       if(collabUtils.isValidCollaborateur(collaborateur)){
+       if(collabUtils.isValidResource(collaborateur)){
           if(!sleepMode){
-            collaborateur = collabUtils.setCollaborateurDefaultValues(collaborateur, true);
+            collaborateur = collabUtils.setDefaultValues(collaborateur, true);
             mysqlFactory.request(connection, 'INSERT INTO collaborateur SET ?', collaborateur, function(err,rows){
               if(err){
                 sleepMode = true;
@@ -156,10 +157,8 @@ router.put('/:id', function(req, res) {
 
 router.delete('/:id', function(req, res) {
   var request = { email : req.params.id};
-
   mysqlFactory.request(connection, 'DELETE FROM `collaborateur` WHERE ?', request, function(err,rows){
     if(err) {
-      console.log('err', err);
       return res.status(500).send({"status" : "Error", "code" : 500, "text" : err.code});
     }
 
@@ -170,4 +169,53 @@ router.delete('/:id', function(req, res) {
   });
 });
 
+router.get('/:id/tirosuris', function(req, res) {
+  var request = { email : req.params.id};
+  mysqlFactory.request(connection, 'SELECT `id` FROM `collaborateur` WHERE ?', request, function(err, rows, fields){
+    if(err) {
+      return res.status(500).send({"status" : "Error", "code" : 500, "text" : err.code});
+    }
+    if(rows.length === 0){
+      res.status(404).send({});
+      return;
+    }
+    mysqlFactory.request(connection, 'SELECT * FROM `tirosuri` WHERE ? OR ? OR ?', [{id_collab_1 : rows[0].id}, {id_collab_2 : rows[0].id}, {id_collab_3 : rows[0].id}], function(err, rows, fields){
+      if(err) {
+        return res.status(500).send({"status" : "Error", "code" : 500, "text" : err.code});
+      }
+      res.json(rows);
+    });
+  });
+});
+
+router.post('/:id/tirosuris', function(req, res) {
+  var body = req.body;
+  if(!body.target_suricat_id){
+      res.status(400).send({});
+      return;
+  }
+  var request = { email : req.params.id};
+  mysqlFactory.request(connection, 'SELECT `id` FROM `collaborateur` WHERE ?', request, function(err, rows, fields){
+    if(err) {
+      return res.status(500).send({"status" : "Error", "code" : 500, "text" : err.code});
+    }
+    if(rows.length === 0){
+      res.status(404).send({});
+      return;
+    }
+    var tirosuri = {};
+    tirosuri.id_collab_1 = rows[0].id;
+    //TODO check the existance of id_collab_2 in DB;
+    tirosuri.id_collab_2 = body.target_suricat_id;
+    tirosuri = tirosuriUtils.setDefaultValues(tirosuri);
+    mysqlFactory.request(connection, 'INSERT INTO `tirosuri` SET ?', tirosuri, function(err, rows, fields){
+      if(err) {
+        res.status(500).send({"status" : "Error", "code" : 500, "text" : err.code});
+        return;
+      }
+      res.json({"status" : "Success"});
+      return;
+    });
+  });
+});
 module.exports = router;

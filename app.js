@@ -9,7 +9,7 @@ var tirosuri = require('./routes/tirosuri');
 var app = express();
 app.use(bodyParser.json());
 app.use('/v1/suricats', suricats);
-app.use('/v1/tirosuri', tirosuri);
+app.use('/v1/tirosuris', tirosuri);
 app.use(function(req, res) {
   res.status(404).send({});
 })

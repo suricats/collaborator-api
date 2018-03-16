@@ -1,3 +1,7 @@
 NOM;PRENOM;MAIL;TELEPHONE;DATE_NAISSANCE;STATUS;SLACK_USERNAME
-John;DOE;john.doe@suricats-consulting.com;06 10 11 12 13;;IN;
-Robin;WILLIAMS;robin.williams@suricats-consulting.com;06 10 11 12 14;;IN;
+John;DOE;john.doe@suricats-consulting.com;06 10 11 12 13;;intern;
+Robintern;WILLIAMS;robin.williams@suricats-consulting.com;06 10 11 12 14;;intern;
+Loic;Sikidi;loic.sikidi@suricats-consulting.com;06 10 11 12 15;;intern;
+toto;TOTO;toto.toto@suricats-consulting.com;06 10 11 12 15;;intern;
+tata;TATA;tata.tata@suricats-consulting.com;06 10 11 12 14;;intern;
+john;SNOW;john.snow@suricats-consulting.com;06 10 11 12 14;;intern;

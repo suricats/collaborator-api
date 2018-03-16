@@ -1,15 +1,18 @@
+*** SET GLOBAL sql_mode = "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"; ***
+
 CREATE TABLE IF NOT EXISTS `collaborateur` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(20) NOT NULL COMMENT 'Collaborator name',
   `firstname` VARCHAR(20) NOT NULL COMMENT 'Collaborator firstname',
   `phone` VARCHAR(20) COMMENT 'Collaborator phone',
   `lastUpdate` CHAR(30) NOT NULL COMMENT 'Last update Date',
-  `email` VARCHAR(40) NOT NULL COMMENT 'Collaborator email',
-  `birthDate` CHAR(20) COMMENT 'Collaborator birth date',
+  `email` VARCHAR(100) NOT NULL  CONSTRAINT email_unique UNIQUE COMMENT 'Collaborator email',
+  `birthDate` CHAR(30) COMMENT 'Collaborator birth date',
   `status` VARCHAR(3) NOT NULL COMMENT 'Collaborator status (IN or OUT)',
   `creationDate` CHAR(30) NOT NULL,
   `slackLogin` VARCHAR(20) COMMENT 'Collaborator slack username',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email`
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS `tirosuri` (
@@ -20,3 +23,63 @@ CREATE TABLE IF NOT EXISTS `tirosuri` (
   `date` CHAR(30) NOT NULL COMMENT 'Collaborator phone',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+////**** NEW SETUP ****////
+
+CREATE TABLE IF NOT EXISTS `suricat` (
+  `suricat_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(20) NOT NULL COMMENT 'Suricat name',
+  `firstname` VARCHAR(20) NOT NULL COMMENT 'Suricat firstname',
+  `phone` VARCHAR(20) COMMENT 'Suricat phone',
+  `last_update` TIMESTAMP NOT NULL DEFAULT 0,
+  `email` VARCHAR(100) NOT NULL COMMENT 'Suricat email',
+  `birthdate` DATE COMMENT 'Suricat birth date',
+  `status` VARCHAR(15) NOT NULL COMMENT 'Suricat status: intern, service_provider or trainee',
+  `start_date` TIMESTAMP DEFAULT 0,
+  `end_date` TIMESTAMP DEFAULT 0,
+  `creation_date` TIMESTAMP NOT NULL DEFAULT 0,
+  `slack_username` VARCHAR(20) COMMENT 'Suricat slack username',
+  PRIMARY KEY (`suricat_id`),
+  UNIQUE KEY (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `sector` (
+  `sector_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(20) NOT NULL COMMENT 'Sector name',
+  `description` VARCHAR(20) COMMENT 'Sector description',
+  PRIMARY KEY (`sector_id`),
+  UNIQUE KEY (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `client` (
+  `client_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(20) NOT NULL COMMENT 'Client name',
+  `sector_id` INT(10) UNSIGNED NOT NULL,
+  `siren` VARCHAR(9) COMMENT 'Client SIREN',
+  `description` VARCHAR(20),
+  PRIMARY KEY (`client_id`),
+  FOREIGN KEY (`sector_id`) REFERENCES sector(`sector_id`),
+  UNIQUE KEY (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `mission` (
+  `suricat_id` INT(10)  REFERENCES suricat(`suricat_id`),
+  `client_id` INT(10) REFERENCES client(`client_id`),
+  `start_date` DATE NOT NULL,
+  `end_date` DATE,
+  `status` VARCHAR(9) NOT NULL COMMENT 'Status of the mission : active, pause, finish',
+  `description` VARCHAR(20) COMMENT 'Mission description',
+  PRIMARY KEY (`suricat_id`, `client_id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `skill` (
+  `skill_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`skill_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `suricat_skills` (
+  `suricat_id` INT(10) REFERENCES suricat(suricat_id),
+  `skill_id` INT(10) REFERENCES skill(skill_id),
+  PRIMARY KEY (`suricat_id`, `skill_id`)
+) ENGINE=InnoDB;

@@ -28,7 +28,7 @@ router.post('/', function(req, res) {
   if(!clientUtils.isValidResource(body)){
     return u.formatResponse(res, u.toFailed("BAD_REQUEST", "Missing mandatory field(s)", u.HTTP_CODE_400));
   }
-  database.query('INSERT INTO `client` SET ?', body).then(function (response, err) {
+  database.query('INSERT INTO `client` SET ?', body).then(function (response) {
     return u.formatResponse(res, u.toSuccess(null, u.HTTP_CODE_201));
   }).catch(function(err){
     if(err) {
@@ -40,7 +40,7 @@ router.post('/', function(req, res) {
 });
 
 router.get('/', function(req, res) {
-  database.query('SELECT * FROM `client`').then(function (response, err) {
+  database.query('SELECT * FROM `client`').then(function (response) {
     return u.formatResponse(res, u.toSuccess(response, u.HTTP_CODE_200));
   }).catch(function(err){
     if(err) {

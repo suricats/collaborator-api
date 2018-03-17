@@ -1,0 +1,641 @@
+{
+	"info": {
+		"name": "suricats-api",
+		"_postman_id": "01559860-b1f0-a526-0142-aae5e1e27eed",
+		"description": "Collection POSTMAN use to test Suricats API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SURICATS",
+			"description": "",
+			"item": [
+				{
+					"name": "IMPORT SURICAT",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "annuaire",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/suricats/import",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"suricats",
+								"import"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST SURICAT",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"Doe\",\n  \"firstname\": \"John\",\n  \"phone\" : \"0610352599\",\n  \"email\" : \"john.doe@suricat-consulting.com\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/suricats",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"suricats"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE SURICAT",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/suricats/{{collab_id}}",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"suricats",
+								"{{collab_id}}"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT SURICAT",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"Doe\",\n  \"firstname\": \"John\",\n  \"phone\" : \"0610352599\",\n  \"email\" : \"john.doe@suricat-consulting.com\",\n  \"status\": \"OUT\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/suricats/{{collab_id}}",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"suricats",
+								"{{collab_id}}"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET SURICAT/{SURICAT_ID}",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api_url}}/v1/suricats/{{suricat_id}}",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"suricats",
+								"{{suricat_id}}"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET SURICAT",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api_url}}/v1/suricats",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"suricats"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "GET SURICAT's missions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api_url}}/v1/suricats/{{suricat_id}}/missions",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"suricats",
+								"{{suricat_id}}",
+								"missions"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "POST SURICAT's missions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"client_id\" : 1,\n  \"start_date\": \"2018-03-15\",\n  \"status\" : \"active\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/suricats/{{suricat_id}}/missions",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"suricats",
+								"{{suricat_id}}",
+								"missions"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "GET SURICAT's tirosuris",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api_url}}/v1/suricats/{{suricat_id}}/tirosuris",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"suricats",
+								"{{suricat_id}}",
+								"tirosuris"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST SURICAT's tirosuris",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"target_suricat_id\" : 34\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/suricats/{{suricat_id}}/tirosuris",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"suricats",
+								"{{suricat_id}}",
+								"tirosuris"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TIROSURIS",
+			"description": "",
+			"item": [
+				{
+					"name": "POST Tirosuris",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/tirosuris",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"tirosuris"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "COMPETENCES",
+			"description": "",
+			"item": []
+		},
+		{
+			"name": "SECTORS",
+			"description": "",
+			"item": [
+				{
+					"name": "POST SECTOR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"Retail\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/sectors",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"sectors"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "GET SECTORS",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"Retail\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/sectors",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"sectors"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "GET SECTOR",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"Retail\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/sectors/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"sectors",
+								"1"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "PUT SECTOR",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"Retail\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/sectors/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"sectors",
+								"1"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CLIENTS",
+			"description": "",
+			"item": [
+				{
+					"name": "POST CLIENT",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"Carrefour\",\n  \"sector_id\" : 1\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/clients",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"clients"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "GET CLIENTS",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"Retail\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/clients",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"clients"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "GET CLIENT",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"Retail\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/clients/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"clients",
+								"1"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "PUT CLIENT",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\" : \"Rue du commerce\"\n}"
+						},
+						"url": {
+							"raw": "{{api_url}}/v1/clients/1",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"v1",
+								"clients",
+								"1"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

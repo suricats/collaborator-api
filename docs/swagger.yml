@@ -1,0 +1,539 @@
+swagger: "2.0"
+info:
+  description: "API suricats"
+  version: "1.0.0"
+  title: "Swagger Suricat-api"
+  contact:
+    email: "loic.sikidi@suricats-consulting.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "ec2-34-240-152-137.eu-west-1.compute.amazonaws.com:8080"
+basePath: "/v1"
+tags:
+- name: "suricats"
+  description: "Everything about a Suricat"
+  externalDocs:
+    description: "Find out more"
+    url: "http://www.suricats-consulting.com"
+- name: "sectors"
+  description: "Our sector of expertise"
+- name: "clients"
+  description: "Our ecosystem"
+schemes:
+- "http"
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+paths:
+  /suricats:
+    post:
+      tags:
+      - "suricats"
+      summary: "Add a new suricat to the tribe"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Suricat object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Suricat"
+      responses:
+        201:
+          description: "successful operation"
+        400:
+          description: "Invalid input"
+      security:
+      - Bearer: []
+    get:
+      tags:
+      - "suricats"
+      summary: "Finds suricats"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "search"
+        in: "query"
+        description: "filter by string"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/SuricatsResponse"
+      security:
+      - Bearer: []
+  /suricats/import:
+    post:
+      tags:
+      - "suricats"
+      summary: "Import all suricats"
+      description: "Import a CSV file containing all suricat members"
+      produces:
+      - "application/json"
+      responses:
+        201:
+          description: "successful operation"
+        500:
+          description: "Internal error"
+      security:
+      - Bearer: []
+  /suricats/{username}:
+    get:
+      tags:
+      - "suricats"
+      summary: "Find a specific suricat"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "ID of suricat to return"
+        required: true
+        type: "string"
+        format: "email"
+      - name: "search"
+        in: "query"
+        description: "Email to filter by"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/SuricatResponse"
+        404:
+          description: "Suricat not found"
+      security:
+      - Bearer: []
+    put:
+      tags:
+      - "suricats"
+      summary: "Find a specific suricat"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "ID of suricat to return"
+        required: true
+        type: "string"
+        format: "email"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/ApiResponse"
+        404:
+          description: "Suricat not found"
+      security:
+      - Bearer: []
+    delete:
+      tags:
+      - "suricats"
+      summary: "Delete a specific suricat"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "ID of suricat to return"
+        required: true
+        type: "string"
+        format: "email"
+      responses:
+        204:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/ApiResponse"
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        404:
+          description: "Suricat not found"
+      security:
+      - Bearer: []
+  /suricats/{username}/missions:
+    get:
+      tags:
+      - "suricats"
+      summary: "Finds suricats"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "ID of suricat to return"
+        required: true
+        type: "string"
+        format: "email"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/MissionsResponse"
+      security:
+      - Bearer: []
+  /clients:
+    post:
+      tags:
+      - "clients"
+      summary: "Add a new client to the ecosystem"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Client object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Client"
+      responses:
+        201:
+          description: "successful operation"
+        400:
+          description: "Invalid input"
+      security:
+      - Bearer: []
+    get:
+      tags:
+      - "clients"
+      summary: "Finds clients"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ClientResponse"
+      security:
+      - Bearer: []
+  /clients/{client_id}:
+    get:
+      tags:
+      - "clients"
+      summary: "Find a specific client"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "client_id"
+        in: "path"
+        description: "ID of client to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/ClientResponse"
+        404:
+          description: "Client not found"
+      security:
+      - Bearer: []
+    put:
+      tags:
+      - "clients"
+      summary: "Find a specific client"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "client_id"
+        in: "path"
+        description: "ID of client to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/ApiResponse"
+        404:
+          description: "Client not found"
+      security:
+      - Bearer: []
+  /sector:
+    post:
+      tags:
+      - "sectors"
+      summary: "Add a new sector to our experties"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Sector object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Sector"
+      responses:
+        201:
+          description: "successful operation"
+        400:
+          description: "Invalid input"
+      security:
+      - Bearer: []
+    get:
+      tags:
+      - "sectors"
+      summary: "Finds sectors"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/SectorsResponse"
+      security:
+      - Bearer: []
+  /sector/{sector_id}:
+    get:
+      tags:
+      - "sectors"
+      summary: "Find a specific sector"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "sector_id"
+        in: "path"
+        description: "ID of sector to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/SectorResponse"
+        404:
+          description: "Sector not found"
+      security:
+      - Bearer: []
+    put:
+      tags:
+      - "sectors"
+      summary: "Find a specific sector"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "sector_id"
+        in: "path"
+        description: "ID of sector to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/ApiResponse"
+        404:
+          description: "Sector not found"
+      security:
+      - Bearer: []
+definitions:
+  Suricat:
+    type: "object"
+    required:
+    - "name"
+    - "firstname"
+    - "email"
+    - "status"
+    properties:
+      suricat_id:
+        type: "integer"
+        format: "int64"
+      email:
+        type: "string"
+        format: "email"
+        example: "jean.dupont@suricats-consulting.com"
+      name:
+        type: "string"
+        example: "Dupont"
+      firstname:
+        type: "string"
+        example: "Jean"
+      status:
+        type: "string"
+        description: "status inside the tribe"
+        enum:
+        - "intern"
+        - "service_provider"
+        - "trainee"
+      phone:
+        type: "string"
+        example: "06 10 20 90 13"
+      creation_date:
+        type: "string"
+        format: "date-time"
+      last_update:
+        type: "string"
+        format: "date-time"
+      start_date:
+        type: "string"
+        format: "date-time"
+      end_date:
+        type: "string"
+        format: "date-time"
+      birthdate:
+        type: "string"
+        format: "date"
+      slack_username:
+        type: "string"
+  Mission:
+    type: "object"
+    required:
+    - "suricat_id"
+    - "client_id"
+    - "start_date"
+    properties:
+      suricat_id:
+        type: "integer"
+        format: "int64"
+      client_id:
+        type: "integer"
+        format: "int64"
+      start_date:
+        type: "string"
+        format: "date-time"
+      end_date:
+        type: "string"
+        format: "date-time"
+      description:
+        type: "string"
+  Client:
+    type: "object"
+    required:
+    - "client_id"
+    - "name"
+    - "sector_id"
+    properties:
+      client_id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      sector_id:
+        type: "integer"
+        format: "int64"
+      siren:
+        type: "string"
+        minLength: 9
+        maxLength: 9
+      description:
+        type: "string"
+  Sector:
+    type: "object"
+    required:
+    - "sector_id"
+    - "name"
+    properties:
+      sector_id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      description:
+        type: "string"
+  Skill:
+    type: "object"
+    required:
+    - "skill_id"
+    - "name"
+    properties:
+      skill_id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+#Response
+  ApiResponse:
+    type: "object"
+    properties:
+      meta:
+        type: "object"
+        properties:
+          status:
+            type: "string"
+            enum:
+            - "success"
+            - "failed"
+          message:
+            type:  "object"
+            properties:
+              code:
+                type: "integer"
+                format: "int32"
+              level:
+                type: "string"
+                enum:
+                - "error"
+                - "warning"
+              message:
+                type: "string"
+  SuricatResponse:
+    allOf:
+      - $ref: '#/definitions/ApiResponse'
+      - properties:
+          data:
+            $ref: "#/definitions/Suricat"
+  SuricatsResponse:
+    allOf:
+      - $ref: '#/definitions/ApiResponse'
+      - properties:
+          data:
+            type: "array"
+            items:
+              $ref: "#/definitions/Suricat"
+  MissionsResponse:
+    allOf:
+      - $ref: '#/definitions/ApiResponse'
+      - properties:
+          data:
+            type: "array"
+            items:
+              $ref: "#/definitions/Mission"
+  ClientsResponse:
+    allOf:
+      - $ref: '#/definitions/ApiResponse'
+      - properties:
+          data:
+            type: "array"
+            items:
+              $ref: "#/definitions/Client"
+  ClientResponse:
+    allOf:
+      - $ref: '#/definitions/ApiResponse'
+      - properties:
+          data:
+            $ref: "#/definitions/Client"
+  SectorsResponse:
+    allOf:
+      - $ref: '#/definitions/ApiResponse'
+      - properties:
+          data:
+            type: "array"
+            items:
+              $ref: "#/definitions/Sector"
+  SectorResponse:
+    allOf:
+      - $ref: '#/definitions/ApiResponse'
+      - properties:
+          data:
+            $ref: "#/definitions/Sector"

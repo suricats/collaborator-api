@@ -1,31 +1,3 @@
-*** SET GLOBAL sql_mode = "ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"; ***
-
-CREATE TABLE IF NOT EXISTS `collaborateur` (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(20) NOT NULL COMMENT 'Collaborator name',
-  `firstname` VARCHAR(20) NOT NULL COMMENT 'Collaborator firstname',
-  `phone` VARCHAR(20) COMMENT 'Collaborator phone',
-  `lastUpdate` CHAR(30) NOT NULL COMMENT 'Last update Date',
-  `email` VARCHAR(100) NOT NULL  CONSTRAINT email_unique UNIQUE COMMENT 'Collaborator email',
-  `birthDate` CHAR(30) COMMENT 'Collaborator birth date',
-  `status` VARCHAR(3) NOT NULL COMMENT 'Collaborator status (IN or OUT)',
-  `creationDate` CHAR(30) NOT NULL,
-  `slackLogin` VARCHAR(20) COMMENT 'Collaborator slack username',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email`
-) ENGINE=InnoDB AUTO_INCREMENT=1;
-
-CREATE TABLE IF NOT EXISTS `tirosuri` (
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id_collab_1` INT(10) NOT NULL COMMENT 'Collaborator 1 email',
-  `id_collab_2` INT(10) NOT NULL COMMENT 'Collaborator 2 email',
-  `id_collab_3` INT(10) COMMENT 'Collaborator 3 email',
-  `date` CHAR(30) NOT NULL COMMENT 'Collaborator phone',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1;
-
-////**** NEW SETUP ****////
-
 CREATE TABLE IF NOT EXISTS `suricat` (
   `suricat_id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(20) NOT NULL COMMENT 'Suricat name',

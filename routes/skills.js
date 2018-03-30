@@ -2,7 +2,7 @@
 // MODULES IMPORT
 var config = require('../config.js');
 var moment = require('moment');
-var skillUtils = require('../lib/client_utils.js');
+var skillUtils = require('../lib/skill_utils.js');
 var Database = require('../lib/database.js');
 var u = require('../lib/utils');
 var logInfo = require('debug')('app:info');

@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS `suricat` (
   `last_update` TIMESTAMP NOT NULL DEFAULT 0,
   `email` VARCHAR(100) NOT NULL COMMENT 'Suricat email',
   `birthdate` DATE COMMENT 'Suricat birth date',
-  `status` VARCHAR(15) NOT NULL COMMENT 'Suricat status: intern, service_provider or trainee',
+  `status` VARCHAR(3) NOT NULL COMMENT 'Suricat status: IN or OUT',
+  `profile` VARCHAR(20) NOT NULL COMMENT 'Suricat profile: intern, service_provider or trainee',
   `start_date` TIMESTAMP DEFAULT 0,
   `end_date` TIMESTAMP DEFAULT 0,
   `creation_date` TIMESTAMP NOT NULL DEFAULT 0,
@@ -37,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `client` (
 CREATE TABLE IF NOT EXISTS `mission` (
   `suricat_id` INT(10)  REFERENCES suricat(`suricat_id`),
   `client_id` INT(10) REFERENCES client(`client_id`),
-  `start_date` DATE NOT NULL,
+  `start_date` DATE,
   `end_date` DATE,
   `status` VARCHAR(9) NOT NULL COMMENT 'Status of the mission : active, pause, finish',
   `description` VARCHAR(20) COMMENT 'Mission description',

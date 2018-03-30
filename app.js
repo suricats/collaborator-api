@@ -24,7 +24,6 @@ app.use(bodyParser.json());
 app.use('/v1/suricats', suricats);
 app.use('/v1/sectors', sectors);
 app.use('/v1/clients', clients);
-//app.use('/v1/tirosuris', tirosuri);
 app.use(function(req, res) {
   res.status(404).send({});
 })
@@ -39,3 +38,5 @@ function checkAuth (req, res, next) {
   }
 	next();
 }
+
+module.exports = app;

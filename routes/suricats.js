@@ -24,7 +24,7 @@ connection.connect(function(err){
 if(!err) {
     logInfo("Database is connected ... nn");
 } else {
-    logError("Error connecting database ... nn");
+    logInfo("Error connecting database ... nn");
 }
 });
 

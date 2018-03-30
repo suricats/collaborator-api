@@ -36,17 +36,14 @@ router.post('/', function(req, res) {
   });
 });
 
-router.get('/:id', function(req, res) {
-  var request = { client_id : req.params.id};
-  database.query('SELECT * FROM `skill` WHERE ?', request).then(function (response) {
-    if(response.length === 0){
-      return u.formatResponse(res, u.toFailed("NOT_FOUND", "Resource not found", u.HTTP_CODE_404));
-    }
-    return u.formatResponse(res, u.toSuccess(response[0], u.HTTP_CODE_200));
+router.get('/', function(req, res) {
+  database.query('SELECT * FROM `skill`').then(function (response) {
+    return u.formatResponse(res, u.toSuccess(response, u.HTTP_CODE_200));
   }).catch(function(err){
     logError('err', err);
     return u.formatResponse(res, u.toFailed(err.code, "Error with the database", u.HTTP_CODE_500));
   });
 });
+
 
 module.exports = router;

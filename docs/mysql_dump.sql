@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `mission` (
   `client_id` INT(10) REFERENCES client(`client_id`),
   `start_date` DATE,
   `end_date` DATE,
-  `status` VARCHAR(9) NOT NULL COMMENT 'Status of the mission : active, pause, finish',
+  `status` VARCHAR(9) NOT NULL COMMENT 'Status of the mission : active, pause, finished',
   `description` VARCHAR(20) COMMENT 'Mission description',
   PRIMARY KEY (`suricat_id`, `client_id`)
 ) ENGINE=InnoDB;

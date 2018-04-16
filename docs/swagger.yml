@@ -8,7 +8,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "ec2-34-240-152-137.eu-west-1.compute.amazonaws.com:8080"
+host: "localhost:8080"
 basePath: "/v1"
 tags:
 - name: "suricats"
@@ -20,6 +20,8 @@ tags:
   description: "Our sector of expertise"
 - name: "clients"
   description: "Our ecosystem"
+- name: "skills"
+  description: "Our skills"
 schemes:
 - "http"
 securityDefinitions:
@@ -166,7 +168,7 @@ paths:
     get:
       tags:
       - "suricats"
-      summary: "Finds suricats"
+      summary: "Find mission(s) of a specific suricat"
       produces:
       - "application/json"
       parameters:
@@ -181,6 +183,28 @@ paths:
           description: "successful operation"
           schema:
             $ref: "#/definitions/MissionsResponse"
+      security:
+      - Bearer: []
+    post:
+      tags:
+      - "suricats"
+      summary: "Add a mission to a specific suricat"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Mission object that needs to be added to a suricat"
+        required: true
+        schema:
+          $ref: "#/definitions/Mission"
+      responses:
+        201:
+          description: "successful operation"
+        400:
+          description: "Invalid input"
       security:
       - Bearer: []
   /clients:
@@ -335,6 +359,88 @@ paths:
       - name: "sector_id"
         in: "path"
         description: "ID of sector to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/ApiResponse"
+        404:
+          description: "Sector not found"
+      security:
+      - Bearer: []
+  /skills:
+    post:
+      tags:
+      - "skills"
+      summary: "Add a new skill to a suricat"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Skill object that needs to be added to the store"
+        required: true
+        schema:
+          $ref: "#/definitions/Skill"
+      responses:
+        201:
+          description: "successful operation"
+        400:
+          description: "Invalid input"
+      security:
+      - Bearer: []
+    get:
+      tags:
+      - "skills"
+      summary: "Finds skills"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/SkillsResponse"
+      security:
+      - Bearer: []
+  /skills/{skill_id}:
+    get:
+      tags:
+      - "skills"
+      summary: "Find a specific skill"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "skill_id"
+        in: "path"
+        description: "ID of skill to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+             $ref: "#/definitions/SkillResponse"
+        404:
+          description: "Skill not found"
+      security:
+      - Bearer: []
+    put:
+      tags:
+      - "skills"
+      summary: "Find a specific skill"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "skill_id"
+        in: "path"
+        description: "ID of skill to return"
         required: true
         type: "integer"
         format: "int64"
@@ -537,3 +643,17 @@ definitions:
       - properties:
           data:
             $ref: "#/definitions/Sector"
+  SkillsResponse:
+    allOf:
+      - $ref: '#/definitions/ApiResponse'
+      - properties:
+          data:
+            type: "array"
+            items:
+              $ref: "#/definitions/Skill"
+  SkillResponse:
+    allOf:
+      - $ref: '#/definitions/ApiResponse'
+      - properties:
+          data:
+            $ref: "#/definitions/Skill"

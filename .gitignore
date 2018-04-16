@@ -113,6 +113,7 @@ lib-cov
 
 # Coverage directory used by tools like istanbul
 coverage
+.nyc_output
 
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
@@ -122,6 +123,11 @@ bower_components
 
 # NodeJS
 node_modules
+
+# vagrant
+.vagrant
+*.retry
+ubuntu-xenia*
 
 #test
 docs/annuaire_suri.csv

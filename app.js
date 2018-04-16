@@ -8,7 +8,7 @@ var config = require('./config.js');
 var suricats = require('./routes/suricats');
 var sectors = require('./routes/sectors');
 var clients = require('./routes/clients');
-var tirosuri = require('./routes/tirosuri');
+var u = require('./lib/utils');
 var authToken = config.authToken;
 
 var app = express();
@@ -18,25 +18,15 @@ if (app.get('env') == 'production') {
   app.use(morgan('dev'));
 }
 app.use(bearerToken());
-app.use(checkAuth);
+app.use(u.checkAuth);
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use('/v1/suricats', suricats);
 app.use('/v1/sectors', sectors);
 app.use('/v1/clients', clients);
 app.use(function(req, res) {
-  res.status(404).send({});
+  u.formatResponse(res, u.toFailed("NOT_FOUND", "", u.HTTP_CODE_404));
 })
 .listen(process.env.PORT || config.port);
-
-function checkAuth (req, res, next) {
-  if(!req.token) {
-    return res.status(401).send();
-  }
-  if(req.token != authToken){
-    return res.status(403).send();
-  }
-	next();
-}
 
 module.exports = app;
